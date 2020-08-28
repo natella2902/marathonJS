@@ -28,6 +28,7 @@ const enemy = {
   changeHP: changeHP
 }
 
+
 $btn.addEventListener('click', function() {
   console.log('btn click');
   character.changeHP(random(20));
@@ -41,37 +42,43 @@ function init() {
   enemy.renderHP();
 }
 
+
 function renderHP() {
   this.renderHPLife();
   this.renderProgressBar();    
 } 
 
 function renderHPLife() {
-  this.elHP.innerText = this.damageHP + ' / ' + this.defaultHP;
+  
+  const {damageHP,  defaultHP} = this;
+  this.elHP.innerText = damageHP + ' / ' + defaultHP;
 }
 
 function renderProgressBar() {
-  this.elProgressBar.style.width = this.damageHP/this.defaultHP*100 + '%';
+  const {damageHP,  defaultHP} = this;
+  this.elProgressBar.style.width = damageHP/defaultHP*100 + '%';
 }
 
 function changeHP(count){
+  const { name } = this;
+  console.log(name);
+
+
   this.damageHP -= count;
 
   const log = this === enemy ? generateLog(this, character, count) : generateLog(enemy, this, count);
   console.log(log);
 
   const $logs = document.querySelector('#logs');
-
-  for (let i=0; i < 1; i ++) {     
-    const p = document.createElement('p');
-    $logs.insertBefore(p, logs.children[0]);
-    p.innerText = log;  
-  }
+    
+  const p = document.createElement('p');
+  $logs.insertBefore(p, logs.children[0]);
+  p.innerText = log;  
 
 
   if (this.damageHP <= 0) {
     this.damageHP = 0;
-    alert(this.name + ' проиграл!!!');
+    alert(name + ' проиграл!!!');
     $btn.disabled = true;
   }
 
