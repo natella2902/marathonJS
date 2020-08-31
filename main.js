@@ -1,4 +1,5 @@
-$btn = $getElementById('btn-kick');
+$btnThunder = $getElementById('btn-kick');
+$btnFire =$getElementById('btn-kick2');
 
 function $getElementById(id) {
   return document.getElementById(id); 
@@ -13,28 +14,87 @@ const character = {
   renderHPLife: renderHPLife,
   renderProgressBar: renderProgressBar,
   renderHP: renderHP,
-  changeHP: changeHP
+  changeHP: changeHP,
 }
+
 
 const enemy = {
   name: 'Charmander',
   defaultHP: 100,
   damageHP: 100,
+  hit: 0,
   elHP: $getElementById('health-enemy'),
   elProgressBar: $getElementById('progressbar-enemy'),
   renderHPLife: renderHPLife,
   renderProgressBar: renderProgressBar,
   renderHP: renderHP,
-  changeHP: changeHP
+  changeHP: changeHP,
 }
 
+function hit() {
+  let a = 0;
 
-$btn.addEventListener('click', function() {
-  console.log('btn click');
-  character.changeHP(random(20));
-  enemy.changeHP(random(20));
+  return function(n=1) {
+    a += n;
+    return a;
+  }  
+}
+
+const characterHit = hit();
+const enemyHit = hit();
+
+function rest(){
+  let b = 8 ;
+  return function(m=1){
+    b -= m;
+    return b;
+  }
+} 
+
+const characterRest = rest();
+const enemyRest = rest();
+
+const span = document.createElement('span');
+$btnThunder.appendChild(span);
+
+$btnThunder.addEventListener('click', function() {
   
+  character.changeHP(random(30));
+
+  let res = characterHit(); 
+  let rest = characterRest();
+
+  span.innerText = rest;
+ 
+  console.log(res);
+  console.log(rest);
+
+  if (!rest) {
+    $btnThunder.disabled = true;
+  }
+ 
 });
+
+const span2 = document.createElement('span');
+$btnFire.appendChild(span2);
+
+$btnFire.addEventListener('click', function(){
+  enemy.changeHP(random(30));
+
+  let res = enemyHit();
+  let rest = enemyRest();
+ 
+  span2.innerText = rest;
+ 
+  console.log(res);
+  console.log(rest);
+
+  if (!rest) {
+    $btnFire.disabled = true;
+  } 
+
+});
+
 
 function init() {
   console.log('Start game!');
@@ -79,7 +139,8 @@ function changeHP(count){
   if (this.damageHP <= 0) {
     this.damageHP = 0;
     alert(name + ' проиграл!!!');
-    $btn.disabled = true;
+    $btnThunder.disabled = true;
+    $btnFire.disabled = true;
   }
 
   this.renderHP();
