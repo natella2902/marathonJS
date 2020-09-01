@@ -1,35 +1,28 @@
-$btnThunder = $getElementById('btn-kick');
-$btnFire =$getElementById('btn-kick2');
+import Pokemon from './pokemon.js';
+import random from './utils.js';
 
 function $getElementById(id) {
   return document.getElementById(id); 
 }
 
-const character = {
-  name: 'pickachu',
-  defaultHP: 100,
-  damageHP: 100,
-  elHP: $getElementById('health-character'),
-  elProgressBar: $getElementById('progressbar-character'),
-  renderHPLife: renderHPLife,
-  renderProgressBar: renderProgressBar,
-  renderHP: renderHP,
-  changeHP: changeHP,
-}
+const $btnThunder = $getElementById('btn-kick');
+const $btnFire =$getElementById('btn-kick2');
 
 
-const enemy = {
+const player1 = new Pokemon({
+  name: 'Pikachu',
+  hp: 500,
+  type: 'electric',
+  selectors: 'character'
+});
+
+const player2 = new Pokemon({
   name: 'Charmander',
-  defaultHP: 100,
-  damageHP: 100,
-  hit: 0,
-  elHP: $getElementById('health-enemy'),
-  elProgressBar: $getElementById('progressbar-enemy'),
-  renderHPLife: renderHPLife,
-  renderProgressBar: renderProgressBar,
-  renderHP: renderHP,
-  changeHP: changeHP,
-}
+  hp: 450,
+  type: 'fire',
+  selectors: 'enemy'
+})
+
 
 function hit() {
   let a = 0;
@@ -43,112 +36,47 @@ function hit() {
 const characterHit = hit();
 const enemyHit = hit();
 
-function rest(){
-  let b = 8 ;
-  return function(m=1){
-    b -= m;
-    return b;
+function countBtn(count=6, el){
+  const innerText = el.innerText;
+  el.innerText = `${innerText} (${count})`;
+  return function(){
+    count--;
+    if (count === 0) {
+      $btnThunder.disabled = true;
+    }
+    el.innerText = `${innerText} (${count})`;
+    return count;
   }
 } 
 
-const characterRest = rest();
-const enemyRest = rest();
 
-const span = document.createElement('span');
-$btnThunder.appendChild(span);
+const characterRest = countBtn(6, $btnThunder);
+const enemyRest = countBtn(6, $btnFire);
+
 
 $btnThunder.addEventListener('click', function() {
+  player1.changeHP(random(40, 20), function(count){
+    console.log(player1, player2, count);
+    console.log(generateLog(player1, player2, count));
+  });
+  player2.changeHP(random(40, 20), function(count){
+    //console.log(player2.name, count);    
+  });
   
-  character.changeHP(random(30));
 
-  let res = characterHit(); 
-  let rest = characterRest();
-
-  span.innerText = rest;
- 
-  console.log(res);
-  console.log(rest);
-
-  if (!rest) {
-    $btnThunder.disabled = true;
-  }
+  characterHit();
+  characterRest(); 
  
 });
-
-const span2 = document.createElement('span');
-$btnFire.appendChild(span2);
 
 $btnFire.addEventListener('click', function(){
-  enemy.changeHP(random(30));
+  player1.changeHP(random(50, 30));
+  player2.changeHP(random(50, 30));
 
-  let res = enemyHit();
-  let rest = enemyRest();
+  enemyHit();
+  enemyRest();
  
-  span2.innerText = rest;
- 
-  console.log(res);
-  console.log(rest);
-
-  if (!rest) {
-    $btnFire.disabled = true;
-  } 
-
 });
-
-
-function init() {
-  console.log('Start game!');
-  character.renderHP();
-  enemy.renderHP();
-}
-
-
-function renderHP() {
-  this.renderHPLife();
-  this.renderProgressBar();    
-} 
-
-function renderHPLife() {
-  
-  const {damageHP,  defaultHP} = this;
-  this.elHP.innerText = damageHP + ' / ' + defaultHP;
-}
-
-function renderProgressBar() {
-  const {damageHP,  defaultHP} = this;
-  this.elProgressBar.style.width = damageHP/defaultHP*100 + '%';
-}
-
-function changeHP(count){
-  const { name } = this;
-  console.log(name);
-
-
-  this.damageHP -= count;
-
-  const log = this === enemy ? generateLog(this, character, count) : generateLog(enemy, this, count);
-  console.log(log);
-
-  const $logs = document.querySelector('#logs');
-    
-  const p = document.createElement('p');
-  $logs.insertBefore(p, logs.children[0]);
-  p.innerText = log;  
-
-
-  if (this.damageHP <= 0) {
-    this.damageHP = 0;
-    alert(name + ' проиграл!!!');
-    $btnThunder.disabled = true;
-    $btnFire.disabled = true;
-  }
-
-  this.renderHP();
-}
-
-function random(num) {
-  return Math.ceil(Math.random() * num);
-}
 
 
 function generateLog(firstPerson, secondPerson, count) {
@@ -166,8 +94,6 @@ function generateLog(firstPerson, secondPerson, count) {
     `${firstPerson.name} пытался что-то сказать, но вдруг, неожиданно ${secondPerson.name} со скуки, разбил бровь сопернику. Удар силой ${count} [${firstPerson.damageHP} / ${secondPerson.damageHP}]`
   ];
   
+  console.log(logs[random(logs.length) - 1]);
   return logs[random(logs.length) - 1];
 }
-
-
-init();
