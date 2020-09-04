@@ -51,4 +51,9 @@ function generateLog(firstPerson, secondPerson, count) {
 }
 
 
-export { $getElementById, random, hit, generateLog, countBtn };
+function reCharacter(arr){
+  return arr[random(arr.length)-1]
+}
+
+
+export { $getElementById, random, hit, generateLog, countBtn, reCharacter };

@@ -51,13 +51,34 @@ class Pokemon extends Selectors {
 
     if (this.hp.current <= 0) {
       this.hp.current = 0;
-      alert(`${this.name} проиграл!`);
+      this.removeBtn(); 
+      this.finalLog();
     }
   
     this.renderHP();
     cb && cb(count);
   }
-    
+
+
+  removeBtn = () => {
+    const allButtons = document.querySelectorAll('.control .button');
+    allButtons.forEach(item => item.remove());  
+  }
+
+  finalLog = () => {
+    const control = document.querySelector('.control');
+    const h2 = document.createElement('h2');
+    control.appendChild(h2);
+    h2.innerText = `${this.name} проиграл!`;
+
+    const startBtn = document.createElement('button');
+    control.appendChild(startBtn);
+    startBtn.innerText = "Start New Game"
+    startBtn.classList.add('button');
+    startBtn.classList.add('startButton');
+
+  }
+
 }
 
 export default Pokemon;
