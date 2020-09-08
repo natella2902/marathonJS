@@ -34,16 +34,16 @@ function countBtn(count=10, el){
 function generateLog(firstPerson, secondPerson, count) {
 
   const logs = [
-    `${firstPerson.name} вспомнил что-то важное, но неожиданно ${secondPerson.name}, не помня себя от испуга, ударил в предплечье врага. Удар силой ${count} [${firstPerson.damageHP} / ${secondPerson.damageHP}]`,
-    `${firstPerson.name} поперхнулся, и за это ${secondPerson.name} с испугу приложил прямой удар коленом в лоб врага. Удар силой ${count} [${firstPerson.damageHP} / ${secondPerson.damageHP}]`,
-    `${firstPerson.name} забылся, но в это время наглый ${secondPerson.name}, приняв волевое решение, неслышно подойдя сзади, ударил. Удар силой ${count} [${firstPerson.damageHP} / ${secondPerson.damageHP}]`,
-    `${firstPerson.name} пришел в себя, но неожиданно ${secondPerson.name} случайно нанес мощнейший удар. Удар силой ${count} [${firstPerson.damageHP} / ${secondPerson.damageHP}]`,
-    `${firstPerson.name} поперхнулся, но в это время ${secondPerson.name} нехотя раздробил кулаком \<вырезанно цензурой\> противника. Удар силой ${count} [${firstPerson.damageHP} / ${secondPerson.damageHP}]`,
-    `${firstPerson.name} удивился, а ${secondPerson.name} пошатнувшись влепил подлый удар. Удар силой ${count} [${firstPerson.damageHP} / ${secondPerson.damageHP}]`,
-    `${firstPerson.name} высморкался, но неожиданно ${secondPerson.name} провел дробящий удар. Удар силой ${count} [${firstPerson.damageHP} / ${secondPerson.damageHP}]`,
-    `${firstPerson.name} пошатнулся, и внезапно наглый ${secondPerson.name} беспричинно ударил в ногу противника. Удар силой ${count} [${firstPerson.damageHP} / ${secondPerson.damageHP}]`,
-    `${firstPerson.name} расстроился, как вдруг, неожиданно ${secondPerson.name} случайно влепил стопой в живот соперника. Удар силой ${count} [${firstPerson.damageHP} / ${secondPerson.damageHP}]`,
-    `${firstPerson.name} пытался что-то сказать, но вдруг, неожиданно ${secondPerson.name} со скуки, разбил бровь сопернику. Удар силой ${count} [${firstPerson.damageHP} / ${secondPerson.damageHP}]`
+    `${firstPerson.name} вспомнил что-то важное, но неожиданно ${secondPerson.name}, не помня себя от испуга, ударил в предплечье врага. Удар силой ${count} [${firstPerson.hp.current} / ${secondPerson.hp.current}]`,
+    `${firstPerson.name} поперхнулся, и за это ${secondPerson.name} с испугу приложил прямой удар коленом в лоб врага. Удар силой ${count} [${firstPerson.hp.current} / ${secondPerson.hp.current}]`,
+    `${firstPerson.name} забылся, но в это время наглый ${secondPerson.name}, приняв волевое решение, неслышно подойдя сзади, ударил. Удар силой ${count} [${firstPerson.hp.current} / ${secondPerson.hp.current}]`,
+    `${firstPerson.name} пришел в себя, но неожиданно ${secondPerson.name} случайно нанес мощнейший удар. Удар силой ${count} [${firstPerson.hp.current} / ${secondPerson.hp.current}]`,
+    `${firstPerson.name} поперхнулся, но в это время ${secondPerson.name} нехотя раздробил кулаком \<вырезанно цензурой\> противника. Удар силой ${count} [${firstPerson.hp.current} / ${secondPerson.hp.current}]`,
+    `${firstPerson.name} удивился, а ${secondPerson.name} пошатнувшись влепил подлый удар. Удар силой ${count} [${firstPerson.hp.current} / ${secondPerson.hp.current}]`,
+    `${firstPerson.name} высморкался, но неожиданно ${secondPerson.name} провел дробящий удар. Удар силой ${count} [${firstPerson.hp.current} / ${secondPerson.hp.current}]`,
+    `${firstPerson.name} пошатнулся, и внезапно наглый ${secondPerson.name} беспричинно ударил в ногу противника. Удар силой ${count} [${firstPerson.hp.current} / ${secondPerson.hp.current}]`,
+    `${firstPerson.name} расстроился, как вдруг, неожиданно ${secondPerson.name} случайно влепил стопой в живот соперника. Удар силой ${count} [${firstPerson.hp.current} / ${secondPerson.hp.current}]`,
+    `${firstPerson.name} пытался что-то сказать, но вдруг, неожиданно ${secondPerson.name} со скуки, разбил бровь сопернику. Удар силой ${count} [${firstPerson.hp.current} / ${secondPerson.hp.current}]`
   ];
   
   console.log(logs[random(logs.length) - 1]);
@@ -51,4 +51,9 @@ function generateLog(firstPerson, secondPerson, count) {
 }
 
 
-export { $getElementById, random, hit, generateLog, countBtn };
+function reCharacter(arr){
+  return arr[random(arr.length)-1]
+}
+
+
+export { $getElementById, random, hit, generateLog, countBtn, reCharacter };

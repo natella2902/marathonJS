@@ -34,15 +34,15 @@ body {
     opacity: .4;
 }
 
-.control {
+.control-player1, .control-player2 {
     width: 320px;
     height: 260px;
     position: relative;
     margin: 20px;
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+    justify-content: space-between;
 }
 
 .playground {
@@ -90,7 +90,7 @@ body {
     text-align: center;
     position: relative;
     width: 180px;
-    height: 260px;
+    height: 215px;
     min-width: 150px;
     margin: 20px;
     background-image: url(./assets/card.svg);
