@@ -55,7 +55,7 @@ class Game {
           console.log(item.id, first.id, second.id);
           console.log(game)
 
-          let dem = await game.getKick(item.id, first.id, second.id)
+          let dem = await game.getKick(first.id, item.id, second.id)
           console.log(dem)
   
           second.changeHP(random(item.maxDamage, item.minDamage), function(count){
