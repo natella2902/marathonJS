@@ -51,10 +51,10 @@ class Game {
         control.appendChild($btn);
         const btnCount = countBtn(item.maxCount, $btn);
       
-        $btn.addEventListener('click', function() {
+        $btn.addEventListener('click', async function() {
           console.log(item.id, first.id, second.id);
 
-          //this.getKick(item.id, first.id, second.id)
+          let dem = await this.getKick(item.id, first.id, second.id)
   
           second.changeHP(random(item.maxDamage, item.minDamage), function(count){
             const log = generateLog(second, first, count);
