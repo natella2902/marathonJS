@@ -51,9 +51,9 @@ function generateLog(firstPerson, secondPerson, count) {
 }
 
 
-function reCharacter(arr){
+function randomPokemon(arr){
   return arr[random(arr.length)-1]
 }
 
 
-export { $getElementById, random, hit, generateLog, countBtn, reCharacter };
+export { $getElementById, random, hit, generateLog, countBtn, randomPokemon };
