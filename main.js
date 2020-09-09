@@ -12,7 +12,7 @@ class Game {
 
   getKick = async (x, y, z) => {
     const responce = await fetch(`https://reactmarathon-api.netlify.app/api/fight?player1id=${x}&attackId=${y}&player2id=${z}`);
-    const body = responce.json();
+    const body = await responce.json();
     return body;
   }
   
@@ -53,8 +53,10 @@ class Game {
       
         $btn.addEventListener('click', async function() {
           console.log(item.id, first.id, second.id);
+          console.log(game)
 
-          let dem = await this.getKick(item.id, first.id, second.id)
+          let dem = await game.getKick(item.id, first.id, second.id)
+          console.log(dem)
   
           second.changeHP(random(item.maxDamage, item.minDamage), function(count){
             const log = generateLog(second, first, count);
